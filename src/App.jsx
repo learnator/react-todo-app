@@ -1,8 +1,16 @@
-import React from "react";
-import Header from "./Components/Header";
 import AddTodoItem from "./Components/AddTodoItem";
+import Header from "./Components/Header";
+import React, { useState } from "react";
+import ShowTodoItems from "./Components/ShowTodoItems";
+import TodoItemService from "./Services/TodoItemService";
 
 function App() {
+  const [todos, setTodos] = useState([]);
+  const getAllTodos = () => {
+    const todo = TodoItemService.getTodoItems();
+    setTodos([...todo]);
+  };
+
   return (
     <>
       <div className="row">
@@ -12,10 +20,10 @@ function App() {
       </div>
       <div className="row">
         <div className="col-6">
-          <h1>Todo Items</h1>
+          <ShowTodoItems item={todos} onUpdateTodos={getAllTodos} />
         </div>
         <div className="col-6">
-          <AddTodoItem />
+          <AddTodoItem onUpdateTodos={getAllTodos} />
         </div>
       </div>
     </>

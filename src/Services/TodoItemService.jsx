@@ -1,13 +1,22 @@
-const todoItems = [];
+const TodoItemService = {
+  todoItemList: [],
 
-export function addTodoItem(item) {
-  todoItems.push(item);
-}
+  addItem: (item) => {
+    TodoItemService.todoItemList.push(item);
+  },
 
-export function removeTodo(id) {
-  todoItems.splice();
-}
+  deleteItem: (id) => {
+    const index = TodoItemService.todoItemList.findIndex(
+      (todo) => todo.id === id
+    );
+    if (index !== -1) {
+      TodoItemService.todoItemList.splice(index, 1);
+    }
+  },
 
-export function getAllTodoItems() {
-  return todoItems;
-}
+  getTodoItems: () => {
+    return TodoItemService.todoItemList;
+  },
+};
+
+export default TodoItemService;
