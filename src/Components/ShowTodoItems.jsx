@@ -6,8 +6,9 @@ import TextField from "@mui/material/TextField";
 import TodoItemService from "../Services/TodoItemService";
 
 function ShowTodoItems(props) {
-  const [filterTodo, setFilterTodo] = useState("");
   const [completedTodos, setCompletedTodos] = useState([]);
+  const [filterTodo, setFilterTodo] = useState("");
+  const [hovered, setHovered] = useState(false);
 
   const filteredTodos = props.item.filter((todo) =>
     todo.desc.toLowerCase().includes(filterTodo.toLowerCase())
@@ -29,7 +30,16 @@ function ShowTodoItems(props) {
           />
         </td>
         <td>
-          <IconButton aria-label="delete" size="large" className="text-dark">
+          <IconButton
+            aria-label="delete"
+            size="large"
+            className={`${hovered ? "text-dark opacity-100" : "opacity-0"}`}
+            onMouseOver={() => {
+              setHovered(true);
+            }}
+            onMouseOut={() => {
+              setHovered(false);
+            }}>
             <DoNotDisturbOnIcon onClick={() => removeTodoItem(todo.id)} />
           </IconButton>
         </td>
