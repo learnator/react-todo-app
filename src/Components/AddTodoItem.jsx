@@ -10,13 +10,13 @@ function AddTodoItem(props) {
   const dueDate = useRef();
   const [count, setCount] = useState(1);
   const [isEmptyDescription, setIsEmptyDescription] = useState(false);
-  const [isEmptyDueDate, setIsEmptyDueDate] = useState(false);
+  // const [isEmptyDueDate, setIsEmptyDueDate] = useState(false);
   const [isSaveButtonEnabled, setIsSaveButtonEnabled] = useState(false);
 
   const displaySaveButton = () => {
     if (
-      description.current.value.length !== 0 &&
-      dueDate.current.value.length !== 0
+      description.current.value.length !== 0
+      // && dueDate.current.value.length !== 0
     ) {
       setIsSaveButtonEnabled(true);
     } else {
@@ -28,9 +28,9 @@ function AddTodoItem(props) {
     if (choice === "description") {
       setIsEmptyDescription(description.current.value === "");
     }
-    if (choice === "dueDate") {
-      setIsEmptyDueDate(dueDate.current.value === "");
-    }
+    // if (choice === "dueDate") {
+    //   setIsEmptyDueDate(dueDate.current.value === "");
+    // }
     displaySaveButton();
   };
 
@@ -52,6 +52,7 @@ function AddTodoItem(props) {
     props.onUpdateTodos();
     description.current.value = "";
     dueDate.current.value = "";
+    setIsSaveButtonEnabled(false);
   };
 
   return (
@@ -68,7 +69,7 @@ function AddTodoItem(props) {
             <div className="row">
               <div className="col-5">
                 <TextField
-                  id="description"
+                  id="txtDescription"
                   label="Description*"
                   variant="filled"
                   fullWidth
@@ -88,17 +89,14 @@ function AddTodoItem(props) {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
                     className="mt-5"
-                    id="due-date"
+                    id="pickerDueDate"
                     label="Due Date*"
                     inputVariant="filled"
                     inputRef={dueDate}
-                    error={isEmptyDueDate}
-                    helperText={
-                      isEmptyDescription ? "Please enter Due Date*" : ""
-                    }
-                    onBlur={() => {
-                      inputValidations("dueDate");
-                    }}
+                    // error={isEmptyDueDate}
+                    // helperText={
+                    //   isEmptyDescription ? "Please enter Due Date*" : ""
+                    // }
                   />
                 </LocalizationProvider>
               </div>
